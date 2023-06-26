@@ -1,0 +1,31 @@
+# runs 3 containers for 3 instances of rasp
+version: "3"
+
+services:
+  # sqlite3:
+  #   container_name: sqlite3_container
+  #   image: nouchka/sqlite3:latest
+  #   stdin_open: true
+  #   tty: true
+  #   volumes:
+  #     - ./db/:/root/db/
+  #   ports:
+  #     - "9000:9000"
+  #   environment:
+  #     - DB_DATABASE=DB.db
+  #   restart: unless-stopped
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: "db"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "password"
+      MYSQL_ROOT_PASSWORD: "password"
+    ports:
+      - "8001:3306"
+    expose:
+      - "8001"
+    volumes:
+      - ./db/:/var/lib/mysql
